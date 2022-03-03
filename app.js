@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const setupContactRoutes = require('./app/routes/contact.routes')
 
-const {BadRequestError, errorhandler} = require('./app/errors')
+const {BadRequestError, errorHandler} = require('./app/errors')
 const app = express();
 
 app.use(cors());
@@ -19,8 +19,8 @@ app.use((req, res, next) => {
     next(new BadRequestError(404, "Resource not found"))
 })
 
-app.use((req, res, next) => {
-    next.errorhandler(error,res);
+app.use((err, req, res, next) => {
+    errorHandler.handlerError(err,res);
 })
 
 module.exports = app;
